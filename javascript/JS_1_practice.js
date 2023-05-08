@@ -2,12 +2,12 @@
 // ex: addTwo(5); -> 7
 // ex: addTwo(6); -> 8
 
-// function addTwo(number) {
-//     return number + 2;
-//   }
+function addTwo(number) {
+    return number + 2;
+}
   
-//   console.log(addTwo(10))
-//   console.log(addTwo(7))
+console.log(addTwo(10))
+console.log(addTwo(7))
 
 
 
@@ -18,15 +18,14 @@
 
 
   
-  // adds the two inputted numbers together
-  // ex: add(5, 10); -> 15
+// adds the two inputted numbers together
+// ex: add(5, 10); -> 15
+function add(num1, num2) {
+  return num1 + num2;
+}
 
-//   function add(num1, num2) {
-//     return num1 + num2;
-//   }
-  
-//   console.log(add(10,6))
-//   console.log(add(7,1))
+// console.log(add(10,6))
+// console.log(add(7,1))
 
 
 
@@ -40,11 +39,11 @@
   // ex: addd(1,2,3); -> 6
   // ex: addd(2,4,2); -> 8
 
-//   function addd(value1, value2, value3) {
-//     return value1 + value2 + value3
-//   }
-//   console.log(addd(1,2,3))
-//   console.log(addd(2,4,2))
+  function addd(value1, value2, value3) {
+    return value1 + value2 + value3
+  }
+  // console.log(addd(1,2,3))
+  // console.log(addd(2,4,2))
   
 
 
@@ -56,10 +55,10 @@
   // subtracts the second inputted number from the first inputted number
   // ex: subtract(5, 10); -> -5
 
-//   function subtract(n1, n2) {
-//     return n1 - n2;
-//   }
-//   console.log(subtract(5,10))
+  function subtract(n1, n2) {
+    return n1 - n2;
+  }
+  console.log(subtract(5,10))
   
 
 
@@ -70,11 +69,11 @@
   // ex: multiplyByTwo(5); -> 10
   // ex: multiplyByTwo(6); -> 12
 
-//   function multiplyByTwo(numero) {
-//     return numero*2;
-//   }
-//   console.log(multiplyByTwo(5))
-//   console.log(multiplyByTwo(6))
+  function multiplyByTwo(numero) {
+    return numero * 2;
+  }
+  console.log(multiplyByTwo(5))
+  console.log(multiplyByTwo(6))
   
 
 
@@ -84,11 +83,11 @@
   // ex: multiply(1,2); -> 2
   // ex: multiply(2,2); -> 4
 
-//   function multiply(val1, val2) {
-//     return val1 * val2
-//   }
-//   console.log(multiply(1,2))
-//   console.log(multiply(2,2))
+  function multiply(val1, val2) {
+    return val1 * val2;
+  }
+  console.log(multiply(1,2))
+  console.log(multiply(2,2))
 
 
 
@@ -99,11 +98,11 @@
   // ex: multiplyy(1,2,3); -> 6
   // ex: multiplyy(2,2,3); -> 12
 
-//   function multiplyy(a, b, c) {
-//     return a * b * c
-//   }
-//   console.log(multiplyy(1,2,3))
-//   console.log(multiplyy(2,2,3))
+  function multiplyy(a, b, c) {
+    return a * b * c
+  }
+  console.log(multiplyy(1,2,3))
+  console.log(multiplyy(2,2,3))
   
 
 
@@ -112,10 +111,10 @@
   // returns the square of the inputted number
   // ex: square(5); -> 25
 
-//   function square(value) {
-//     return value**2
-//   }
-//   console.log(square(5))
+  function square(value) {
+    return value**2
+  }
+  console.log(square(5))
   
 
 
@@ -128,15 +127,17 @@
   // ex: isOdd(4); -> false
   // ex: isOdd(5); -> true
 
-//   function isOdd(num) {
-//     if (num % 2 ===0) {
-//         return true;
-//     }else {
-//         return false;
-//     }
-//   }
-//   console.log(isOdd(4))
-//   console.log(isOdd(5))
+  function isOdd(num) {
+    // if (num % 2 ===0) {
+    //     return true;
+    // } else {
+    //     return false;
+    // }
+
+    return num % 2 !== 0;
+  }
+  // console.log(isOdd(4))
+  // console.log(isOdd(5))
 
 
 
@@ -152,16 +153,17 @@
   // ex: isNegative(1); -> false
   // ex: isNegative(0); -> false
 
-//   function isNegative(num) {
-//     if (num < 0) {
-//         return true;
-//     }else {
-//         return false;
-//     }
-//   }
-//   console.log(isNegative(-1))
-//   console.log(isNegative(1))
-//   console.log(isNegative(0))
+  function isNegative(num) {
+    // if (num < 0) {
+    //     return true;
+    // } else {
+    //     return false;
+    // }
+    return num < 0;
+  }
+  console.log(isNegative(-1))
+  console.log(isNegative(1))
+  console.log(isNegative(0))
   
 
 
@@ -171,11 +173,11 @@
   // ex: positive(-1); -> 1
   // ex: positive(1); -> 1
 
-//   function positive(num) {
-//     return Math.abs(num);
-//   }
-//   console.log(positive(-1))
-//   console.log(positive(1))
+  function positive(num) {
+    return Math.abs(num);
+  }
+  console.log(positive(-1))
+  console.log(positive(1))
 
 
 
@@ -189,12 +191,12 @@
 
 
 
-//   function isNumber(value) {
-//     return typeof value === "number";
-    // return isNaN(value);
-//   }
-//   console.log(isNumber(5))
-//   console.log(isNumber('hi'))
+  function isNumber(value) {
+    return typeof value === "number";
+    return isNaN(value);
+  }
+  console.log(isNumber(5))
+  console.log(isNumber('hi'))
 
 
 
@@ -207,21 +209,41 @@
   // isArray(5); → false
   // isArray([1,2,3]); → true
 
-//   function isArray(value) {
-//     return Array.isArray(value);
-//   }
-//   console.log(isArray(5))
-//   console.log(isArray([1,2,3]))
+  function isArray(value) {
+    return Array.isArray(value);
+  }
+  console.log(isArray(5))
+  console.log(isArray([1,2,3]))
 
 
-
-
+// Data Types: 
+// OOP => Object Oriented Programming
 
   // Returns boolean of whether argument is classified as an Object
   // isObject(5); → false
   // isObject([1,2,3]); → true
+
+  console.log('array is also an object', typeof [1, 2, 3]);
+
+  const a = {a: 1};
+  const b = {a: 1};
+
+  const array = {
+    0: 1,
+    1: 5,
+    2: 6,
+  }
+
+  console.log('obj a and b', a === b) //=> false
+
+  const c = 1;
+  const d = 1;
+  
+  console.log('a'=== 'a')
+
   function isObject(value) {
     // CODE HERE
+    
   
   }
   
