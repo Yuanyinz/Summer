@@ -2,9 +2,17 @@
 // and returns an array of only the odd numbers
 // ex: returnOdds([1,2,3,4,5,6,7]); -> [1,3,5,7]
 function returnOdds(array) {
-    // CODE HERE
-  
+  let newArray = []
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] % 2 === 1) {
+      newArray.push(array[i])
+    }
+  }
+  return newArray
 }
+
+console.log(returnOdds([1,2,3,4,5,6,7]));
+
 
 
 // this function accepts an array of numbers
@@ -31,19 +39,6 @@ function trim(string) {
   // CODE HERE
 }
 
-// under the hood, a JavaScript array is a specific type of object in which values are paired with sequentially numbered keys.
-// the "Array" object also contains a number of methods that give arrays their functionality.
-// the below function should return an empty object that has the behavior and functionality of an array. this object should have the following methods:
-  // push(val) adds val to the end
-  // pop() removes a value from the end and returns it
-  // unshift(val) adds val to the beginning
-  // shift() removes a value from the beginning and returns it
-// the goal of this problem is to reverse engineer what array methods are actually doing and create an object that has those methods
-function createArray() {
-  // CODE HERE
-
-}
-
 
 // Iterates over elements of an array invoking callback for each element. The callback should be passed the element, the current index, and the entire array.
 // const callback = function(element, index, array) {
@@ -54,6 +49,7 @@ function createArray() {
 function forEach(array, callback) {
   // CODE HERE
 }
+
 
 // Creates an array of values by running each element in collection through callback
 // Should we explain that map returns?
@@ -153,4 +149,19 @@ function flatten(array) {
 // flattenDeep([1, [2, 3, [4]]]); → [1, 2, 3, 4]
 function flattenDeep(array) {
   // CODE HERE
+}
+
+
+
+// under the hood, a JavaScript array is a specific type of object in which values are paired with sequentially numbered keys.
+// the "Array" object also contains a number of methods that give arrays their functionality.
+// the below function should return an empty object that has the behavior and functionality of an array. this object should have the following methods:
+  // push(val) adds val to the end
+  // pop() removes a value from the end and returns it
+  // unshift(val) adds val to the beginning
+  // shift() removes a value from the beginning and returns it
+// the goal of this problem is to reverse engineer what array methods are actually doing and create an object that has those methods
+function createArray() {
+  // CODE HERE
+
 }
