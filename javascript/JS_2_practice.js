@@ -47,8 +47,12 @@ console.log(findMax([1,25,6,3]))
  * trim(' hello '); -> 'hello'
  */
 function trim(string) {
-  // CODE HERE
+  return "'" + string.trim() + "'";
 }
+
+console.log(trim(' hello '))
+
+
 
 
 // Iterates over elements of an array invoking callback for each element. The callback should be passed the element, the current index, and the entire array.
