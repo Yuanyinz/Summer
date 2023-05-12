@@ -31,9 +31,16 @@ console.log(returnEvens([1,2,3,4,5,6,7]))
 // returns only the max element from the inputted array of numbers
 // ex: findMax([1,25,6,3]); -> 25
 function findMax(array) {
-  // CODE HERE
-
+  let biggestNumber = 0
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] > biggestNumber)
+      biggestNumber = array[i]
+  }
+  return biggestNumber
 }
+
+console.log(findMax([1,25,6,3]))
+
 
 /**
  * remove leading and trailing whitespace or specified characters from string
