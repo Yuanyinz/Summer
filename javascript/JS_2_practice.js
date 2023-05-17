@@ -11,7 +11,7 @@ function returnOdds(array) {
   return newArray
 }
 
-console.log(returnOdds([1,2,3,4,5,6,7]));
+// console.log(returnOdds([1,2,3,4,5,6,7]));
 
 
 // this function accepts an array of numbers
@@ -22,16 +22,16 @@ function returnEvens(array) {
   for (let i = 0; i < array.length; i++) {
     if (array[i] % 2 === 0)
       newArray.push(array[i])
- }
- return newArray
+  }
+  return newArray
 }
 
-console.log(returnEvens([1,2,3,4,5,6,7]))
+// console.log(returnEvens([1,2,3,4,5,6,7]))
 
 // returns only the max element from the inputted array of numbers
 // ex: findMax([1,25,6,3]); -> 25
 function findMax(array) {
-  let biggestNumber = 0
+  let biggestNumber = - Infinity;
   for (let i = 0; i < array.length; i++) {
     if (array[i] > biggestNumber)
       biggestNumber = array[i]
@@ -39,18 +39,28 @@ function findMax(array) {
   return biggestNumber
 }
 
-console.log(findMax([1,25,6,3]))
+// console.log(findMax([1,25,6,3]))
+// console.log(findMax([-1, -5, -10]))
+
 
 
 /**
  * remove leading and trailing whitespace or specified characters from string
  * trim(' hello '); -> 'hello'
  */
+
+// two pointers
+// let start = 0;
+// let end = string.length - 1;
+
+// loop from the beginning => leading whitespace
+// loop from the ending => trailing whitespace
+
 function trim(string) {
   return "'" + string.trim() + "'";
 }
 
-console.log(trim(' hello '))
+// console.log(trim(' hello '))
 
 
 
@@ -62,8 +72,21 @@ console.log(trim(' hello '))
 // forEach(['a','b','c'], callback); → prints a,0,['a','b','c'] b,1,['a','b','c'] c,2,['a','b','c']
 // For each element in the array, the callback we passed is called. The callback can be customized, but in the above example, the callback prints out the element, index, and entire array.
 function forEach(array, callback) {
-  // CODE HERE
+  for (let i = 0; i < array.length; i++){
+    callback(array[i], i , array);
+  }
 }
+
+function callback1 (element, index, array) {
+  console.log(element + "," + index + "," + "[" + array.join(",") + "]");
+}
+
+// const callback = function (element) {
+//   console.log(element * 2)
+// }
+
+console.log(forEach(['a','b','c'], callback1));
+
 
 
 // Creates an array of values by running each element in collection through callback
@@ -73,9 +96,23 @@ function forEach(array, callback) {
 //  return element * 3;
 // }); -> [3,6,9]
 // BONUS: use the forEach method you use to create map
+
+
 function map(array, callback) {
-  // CODE HERE
+  let result = [];
+  for(let i = 0; i < array.length;i++) {
+    result.push(callback(array[i], i, array));
+  }
+  return result;
 }
+
+const callback2 = function(element) {
+  return element * 3;
+};
+
+console.log(map([1,2,3],callback2));
+
+
 
 // Iterates over elements of collection, returning an Array of all elements callback returns truthy for.
 // filter([1,2,3,4], function(element, index, collection) {
@@ -104,8 +141,16 @@ function reject(collection, callback) {
 // Creates an array without duplicate values from the inputted array.
 // The order of the array is preserved.
 // uniq([1,2,1]); → [1,2]
+
+// Array.includes(element) => not optimal 
+
+// const obj = {1: true}
+
+// JS => const set = new Set()
+// Set.add()
+// Set.has()
+
 function uniq(array) {
-  // CODE HERE
 
 }
 
@@ -122,8 +167,12 @@ function indexOf(array, value) {
 
 // Returns a function that is restricted to invoking func once.
 // Repeat calls to the function return the value of the first call.
+
+// closure
+
+// execution context
+
 function once(func) {
-  // CODE HERE
 
 }
 
@@ -138,6 +187,8 @@ function once(func) {
 function reduce(array, callback, start) {
   // CODE HERE
 }
+
+
 
 // Takes an array and a function as arguments.
 // Returns true if the function produces true when each array element is passed to it.
@@ -156,9 +207,19 @@ function every(array, func) {
 
 // Flattens a nested array.
 // flatten([1, [2, 3, [4]]]); → [1, 2, 3, [4]]
+
+// Array.flatten()
+
 function flatten(array) {
   // CODE HERE
 }
+
+
+
+
+
+
+// Recursion
 
 // Recursively flattens a nested array.
 // flattenDeep([1, [2, 3, [4]]]); → [1, 2, 3, 4]
