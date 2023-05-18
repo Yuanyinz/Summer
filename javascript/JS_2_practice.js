@@ -56,13 +56,19 @@ function findMax(array) {
 // loop from the beginning => leading whitespace
 // loop from the ending => trailing whitespace
 
-function trim(string) {
-  return "'" + string.trim() + "'";
-}
-
+// function trim(string) {
+//   for (let i = 0; i<string.length; i++) {
+//     if (string[i] !== ' ') {
+//       break;
+//     }
+//   }
+//   for (let i = -1; i<string.length; i--) {
+//     if (string[-i] !== ' ') {
+//       break;
+//     }
+//   }
+// }
 // console.log(trim(' hello '))
-
-
 
 
 // Iterates over elements of an array invoking callback for each element. The callback should be passed the element, the current index, and the entire array.
@@ -122,8 +128,38 @@ console.log(map([1,2,3],callback2));
 //  return element % 2 !== 0;
 // }); → [1,3]
 function filter(collection, callback) {
-  // CODE HERE
+  let result = [];
+  for (let i = 0; i < collection.length; i++) {
+    if (callback(collection[i]) === true){
+      result.push(collection[i])
+    }
+  }
+  return result
 }
+
+function callback3(element) {
+  return element % 2 === 0;
+}
+
+console.log(filter([1,2,3,4],callback3))
+
+
+function filter2(collection,callback) {
+  let result = [];
+  for (let i = 0; i < Object.values(collection).length; i++) {
+    if (callback(Object.values(collection)[i]) === true){
+      result.push(Object.values(collection)[i])
+    }
+  }
+  return result
+}
+
+function callback4(element) {
+  return element % 2 !== 0;
+}
+
+console.log(filter2({a: 1, b: 2,c: 3,d: 4}, callback4))
+
 
 // Removes all elements from array that callback returns truthy for and returning a collection of elements that did not pass the truthy test.
 // The returned collection should be the same type that was passed in, either an Array or Object.
@@ -135,8 +171,37 @@ function filter(collection, callback) {
 // }); → {b:2, d:4}
 // Challenge: use filter
 function reject(collection, callback) {
-  // CODE HERE
+  let result = [];
+  for (let i = 0; i < collection.length; i++) {
+    if (callback(collection[i]) === false){
+      result.push(collection[i])
+    }
+  }
+  return result
 }
+
+function callback5(element) {
+  return element % 2 === 0;
+}
+console.log(reject([1,2,3,4],callback5))
+
+
+function reject2(collection,callback) {
+  let result = {};
+  // const keys = Object.keys(collection);
+  for (let i = 0; i < Object.keys(collection).length; i++) {
+    if (callback(collection[Object.keys(collection)[i]]) === true){
+      result[Object.keys(collection)[i]] = collection[Object.keys(collection)[i]];
+    }
+  }
+  return result
+}
+
+function callback6(element) {
+  return element % 2 !== 0;
+}
+
+console.log(reject2({a: 1, b: 2,c: 3,d: 4}, callback6))
 
 // Creates an array without duplicate values from the inputted array.
 // The order of the array is preserved.
@@ -144,13 +209,18 @@ function reject(collection, callback) {
 
 // Array.includes(element) => not optimal 
 
+
 // const obj = {1: true}
+
+function uniq1(array) {
+
+}
 
 // JS => const set = new Set()
 // Set.add()
 // Set.has()
 
-function uniq(array) {
+function uniq2(array) {
 
 }
 
@@ -175,6 +245,7 @@ function indexOf(array, value) {
 function once(func) {
 
 }
+
 
 // Reduces collection to a value which is the accumulated result of running each element in collection through iteratee, where each successive invocation is supplied the return value of the previous. If accumulator is not provided the first element of collection is used as the initial value.
 // If a start parameter is not provided, then set the start value as the zeroth index
@@ -213,6 +284,13 @@ function every(array, func) {
 function flatten(array) {
   // CODE HERE
 }
+
+
+
+
+
+
+
 
 
 
