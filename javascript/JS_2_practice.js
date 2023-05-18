@@ -213,16 +213,54 @@ console.log(reject2({a: 1, b: 2,c: 3,d: 4}, callback6))
 // const obj = {1: true}
 
 function uniq1(array) {
+  const obj = {};
+  for (let i = 0; i<array.length; i++) {
+    if (i in obj) {
+      obj[array[i]]=true;
+    }
+    else {
+      obj[array[i]]=false;
+    }
+  }
+  console.log(obj)
 
+
+
+  objkey = []
+  for (let i = 0; i<Object.keys(obj).length; i++){
+    objkey.push(Object.keys(obj)[i])
+  }
+  console.log(objkey)
+
+
+
+  result = []
+  for (let i = 0; i<objkey.length;i++){
+    let num= Number(objkey[i]);
+    result.push(num);
+  }
+  return result
 }
+
+console.log(uniq1([1,2,1]))
 
 // JS => const set = new Set()
 // Set.add()
 // Set.has()
 
 function uniq2(array) {
-
+  const set1 = new Set(array);
+  setArray = []
+  for (const i of set1) {
+    setArray.push(i)
+  }
+  return setArray
 }
+
+console.log(uniq2([1,2,1]))
+
+
+
 
 // Gets the index at which the first occurrence of value is found in array
 // Returns -1 if element is not in array
