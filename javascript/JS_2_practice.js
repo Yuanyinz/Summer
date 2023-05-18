@@ -56,19 +56,23 @@ function findMax(array) {
 // loop from the beginning => leading whitespace
 // loop from the ending => trailing whitespace
 
-// function trim(string) {
-//   for (let i = 0; i<string.length; i++) {
-//     if (string[i] !== ' ') {
-//       break;
-//     }
-//   }
-//   for (let i = -1; i<string.length; i--) {
-//     if (string[-i] !== ' ') {
-//       break;
-//     }
-//   }
-// }
-// console.log(trim(' hello '))
+function trim(string) {
+  for (let i = 0; i<string.length; i++) {
+  }
+  // for (let i = -1; i<string.length; i--) {
+  //   if (string[-i] !== ' ') {
+  //     break;
+  //   }
+  // }
+
+  console.log("'"+string+"'")
+  return string
+}
+console.log(trim(' hello '))
+
+
+
+
 
 
 // Iterates over elements of an array invoking callback for each element. The callback should be passed the element, the current index, and the entire array.
@@ -192,6 +196,8 @@ function reject2(collection,callback) {
   for (let i = 0; i < Object.keys(collection).length; i++) {
     if (callback(collection[Object.keys(collection)[i]]) === true){
       result[Object.keys(collection)[i]] = collection[Object.keys(collection)[i]];
+      // 为什么是Object.keys(collection)[i]而不是Object.keys(collection)
+      // collection[Object.keys(collection)[i]];collection是哪来的？
     }
   }
   return result
@@ -267,10 +273,24 @@ console.log(uniq2([1,2,1]))
 // DO NOT USE THE BUILT-IN INDEXOF function
 // indexOf([11,22,33], 11); → 0
 // indexOf([11,22,33], 5); → -1
-function indexOf(array, value) {
-  // CODE HERE
 
+function indexOf(array, value) {
+  for(let i = 0; i<array.length; i++){
+    console.log(array)
+    if (array[i] === value) {
+      return '0'
+    }
+    else {
+      return '-1'
+    }
+  }
 }
+
+console.log(indexOf([11,22,33], 11))
+console.log(indexOf([11,22,33], 5))
+
+
+
 
 
 // Returns a function that is restricted to invoking func once.
@@ -285,6 +305,10 @@ function once(func) {
 }
 
 
+
+
+
+
 // Reduces collection to a value which is the accumulated result of running each element in collection through iteratee, where each successive invocation is supplied the return value of the previous. If accumulator is not provided the first element of collection is used as the initial value.
 // If a start parameter is not provided, then set the start value as the zeroth index
 // reduce([1,2], function(stored,current) {
@@ -294,8 +318,24 @@ function once(func) {
 //  return stored + current;
 // },1); → 4
 function reduce(array, callback, start) {
-  // CODE HERE
+  for (let i = 0; i<array.length; i++) {
+    result = callback+start
+  }
+  console.log(result)
+  return result
 }
+
+
+
+
+reduce([1,2], function(stored,current) {
+ return stored + current;
+})
+
+reduce([1,2], function(stored,current) {
+   return stored + current;
+  },1)
+
 
 
 
@@ -310,9 +350,20 @@ function reduce(array, callback, start) {
 // });  -> false
 // BONUS: use reduce in your answer
 function every(array, func) {
-  // CODE HERE
+  for(let i = 0; i<array.length; i++) {
+    
+  }
 
 }
+
+every([2, 4, 6], function(elem) {
+  return elem % 2 == 0;
+})
+
+every([2, 4, 7], function(elem) {
+  return elem % 2 == 0;
+})
+
 
 // Flattens a nested array.
 // flatten([1, [2, 3, [4]]]); → [1, 2, 3, [4]]
@@ -320,13 +371,11 @@ function every(array, func) {
 // Array.flatten()
 
 function flatten(array) {
-  // CODE HERE
+  const newArray = array.flat();
+  return newArray
 }
 
-
-
-
-
+console.log(flatten([1, [2, 3, [4]]]))
 
 
 
