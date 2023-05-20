@@ -53,20 +53,35 @@ function findMax(array) {
 // let start = 0;
 // let end = string.length - 1;
 
-// loop from the beginning => leading whitespace
-// loop from the ending => trailing whitespace
+// loop from the beginning => leading whitespace    start += 1; 
+// loop from the ending => trailing whitespace      end -= 1;
 
+
+
+// increment by 1 => 1) start = start + 1; 2) start += 1; 3) start++
+//'hello '
+// let name = 'YY'
+// `` => `hello {name}`
 function trim(string) {
-  for (let i = 0; i<string.length; i++) {
+  let start = 0;
+  while (start < string.length && string[start] === ' ') {
+    start += 1; 
   }
-  // for (let i = -1; i<string.length; i--) {
-  //   if (string[-i] !== ' ') {
-  //     break;
-  //   }
+
+  //length = 6
+  let end = string.length - 1;
+  while (end < string.length && string[end] === ' ') {
+    end -= 1;
+  }
+
+  let result = '';
+  //loop: index; index < value; index++
+  // for (let i = start; i <= end; i++) {
+  //   result += string[i];
   // }
 
-  console.log("'"+string+"'")
-  return string
+  result = string.slice(start, end + 1)
+  return result;
 }
 console.log(trim(' hello '))
 
@@ -95,7 +110,7 @@ function callback1 (element, index, array) {
 //   console.log(element * 2)
 // }
 
-console.log(forEach(['a','b','c'], callback1));
+// console.log(forEach(['a','b','c'], callback1));
 
 
 
@@ -120,7 +135,7 @@ const callback2 = function(element) {
   return element * 3;
 };
 
-console.log(map([1,2,3],callback2));
+// console.log(map([1,2,3],callback2));
 
 
 
@@ -133,6 +148,7 @@ console.log(map([1,2,3],callback2));
 // }); → [1,3]
 function filter(collection, callback) {
   let result = [];
+  if (Array.isArray(collection) === true) {
   for (let i = 0; i < collection.length; i++) {
     if (callback(collection[i]) === true){
       result.push(collection[i])
@@ -140,16 +156,7 @@ function filter(collection, callback) {
   }
   return result
 }
-
-function callback3(element) {
-  return element % 2 === 0;
-}
-
-console.log(filter([1,2,3,4],callback3))
-
-
-function filter2(collection,callback) {
-  let result = [];
+  else {
   for (let i = 0; i < Object.values(collection).length; i++) {
     if (callback(Object.values(collection)[i]) === true){
       result.push(Object.values(collection)[i])
@@ -157,15 +164,18 @@ function filter2(collection,callback) {
   }
   return result
 }
-
-function callback4(element) {
-  return element % 2 !== 0;
 }
+ 
+console.log(filter([1,2,3,4], function(element, index, collection) {
+   return element % 2 === 0;
+  }))
+  
+console.log(filter({a: 1, b: 2,c: 3,d: 4}, function(element, index, collection) {
+     return element % 2 !== 0;
+  }))
 
-console.log(filter2({a: 1, b: 2,c: 3,d: 4}, callback4))
 
-
-// Removes all elements from array that callback returns truthy for and returning a collection of elements that did not pass the truthy test.
+// Removes all elements from array/object that callback returns truthy for and returning a collection of elements that did not pass the truthy test.
 // The returned collection should be the same type that was passed in, either an Array or Object.
 // reject([1,2,3,4], function(element, index, collection) {
 //  return element % 2 === 0;
@@ -174,40 +184,36 @@ console.log(filter2({a: 1, b: 2,c: 3,d: 4}, callback4))
 //  return value % 2 !== 0;
 // }); → {b:2, d:4}
 // Challenge: use filter
+
 function reject(collection, callback) {
-  let result = [];
-  for (let i = 0; i < collection.length; i++) {
-    if (callback(collection[i]) === false){
-      result.push(collection[i])
+  if (Array.isArray(collection) === true) {
+    let result = [];
+    for (let i = 0; i < collection.length; i++) {
+      if (callback(collection[i]) === false){
+        result.push(collection[i])
+      }
+    }
+    return result
+  } 
+  else {
+    let result = {};
+    const keys = Object.keys(collection);
+    for (let i = 0; i < Object.keys(collection).length; i++) {
+      if (callback(collection[Object.keys(collection)[i]]) === false){
+        result[Object.keys(collection)[i]] = collection[Object.keys(collection)[i]];
     }
   }
   return result
 }
+  }
 
-function callback5(element) {
+console.log(reject([1,2,3,4], function(element, index, collection) {
   return element % 2 === 0;
-}
-console.log(reject([1,2,3,4],callback5))
+  }))
 
-
-function reject2(collection,callback) {
-  let result = {};
-  // const keys = Object.keys(collection);
-  for (let i = 0; i < Object.keys(collection).length; i++) {
-    if (callback(collection[Object.keys(collection)[i]]) === true){
-      result[Object.keys(collection)[i]] = collection[Object.keys(collection)[i]];
-      // 为什么是Object.keys(collection)[i]而不是Object.keys(collection)
-      // collection[Object.keys(collection)[i]];collection是哪来的？
-    }
-  }
-  return result
-}
-
-function callback6(element) {
-  return element % 2 !== 0;
-}
-
-console.log(reject2({a: 1, b: 2,c: 3,d: 4}, callback6))
+console.log(reject({a:1, b:2, c:3, d:4}, function(value, key, collection) {
+  return value % 2 !== 0;
+}))
 
 // Creates an array without duplicate values from the inputted array.
 // The order of the array is preserved.
@@ -230,21 +236,27 @@ function uniq1(array) {
   }
   console.log(obj)
 
+  const result = [];
+
+  // for (let key in obj) {
+  //   result.push(Number(key))
+  // }
+
+  Object.keys(obj).forEach(key => result.push(Number(key)))
+
+  // objkey = []
+  // for (let i = 0; i<Object.keys(obj).length; i++){
+  //   objkey.push(Object.keys(obj)[i])
+  // }
+  // console.log(objkey)
 
 
-  objkey = []
-  for (let i = 0; i<Object.keys(obj).length; i++){
-    objkey.push(Object.keys(obj)[i])
-  }
-  console.log(objkey)
 
-
-
-  result = []
-  for (let i = 0; i<objkey.length;i++){
-    let num= Number(objkey[i]);
-    result.push(num);
-  }
+  // result = []
+  // for (let i = 0; i<objkey.length;i++){
+  //   let num= Number(objkey[i]);
+  //   result.push(num);
+  // }
   return result
 }
 
@@ -275,20 +287,19 @@ console.log(uniq2([1,2,1]))
 // indexOf([11,22,33], 5); → -1
 
 function indexOf(array, value) {
-  for(let i = 0; i<array.length; i++){
+  for (let i = 0; i<array.length; i++){
     console.log(array)
     if (array[i] === value) {
-      return '0'
-    }
-    else {
-      return '-1'
+      return 0
     }
   }
+  return -1
 }
 
-console.log(indexOf([11,22,33], 11))
+console.log(indexOf([11,22,33], 33))
 console.log(indexOf([11,22,33], 5))
-
+console.log(indexOf([1, 2, 3], 2))
+console.log(indexOf([1, 2, 3], 1))
 
 
 
@@ -300,9 +311,35 @@ console.log(indexOf([11,22,33], 5))
 
 // execution context
 
-function once(func) {
+// ... => rest and spread operator
+const arr3 = [1, 2, 3];
+const arr4 = [4, 5, 6];
+const arr5 = [arr3, arr4];
+console.log(arr5)
+console.log([...arr3, ...arr4])
 
+function once(func) {
+  let hasBeenInvoked = false;
+  let result;
+
+  return function resultFunc(...args) {
+    if (!hasBeenInvoked) {
+      result = func(...args);
+      hasBeenInvoked = true;
+    }
+
+    return result;
+  }
 }
+
+const func = (num1, num2) => {return num1 + num2};
+
+const resultFunc = once(func)
+
+console.log(resultFunc(1, 2));
+console.log(resultFunc(2, 3));
+console.log(resultFunc(6, 3));
+
 
 
 
@@ -318,23 +355,20 @@ function once(func) {
 //  return stored + current;
 // },1); → 4
 function reduce(array, callback, start) {
+  let acc = start || 0;
   for (let i = 0; i<array.length; i++) {
-    result = callback+start
+    acc = callback(acc,array[i])
   }
-  console.log(result)
-  return result
+  return acc
 }
 
-
-
-
-reduce([1,2], function(stored,current) {
+console.log(reduce([1,2], function(stored,current) {
  return stored + current;
-})
+}))
 
-reduce([1,2], function(stored,current) {
+console.log(reduce([1,2], function(stored,current) {
    return stored + current;
-  },1)
+  },1))
 
 
 
@@ -349,21 +383,31 @@ reduce([1,2], function(stored,current) {
 //   return elem % 2 == 0;
 // });  -> false
 // BONUS: use reduce in your answer
-function every(array, func) {
+function every(array,func) {
   for(let i = 0; i<array.length; i++) {
-    
+    if (func(array[i]) === false) {
+      return false
+    } 
   }
-
+  return true
 }
-
-every([2, 4, 6], function(elem) {
+// console.log(every([2, 4, 6]))
+// function callback7(elem) {
+//   return elem % 2 == 0;
+// }
+console.log(every([2, 4, 6], function(elem) {
   return elem % 2 == 0;
-})
+}))
 
-every([2, 4, 7], function(elem) {
-  return elem % 2 == 0;
-})
+console.log(every([2, 4, 7], function(elem) {
+    return elem % 2 == 0;
+  }))
 
+  
+// console.log(every([2, 4, 6]))
+// function callback7(elem) {
+//   return elem % 2 == 0;
+// }
 
 // Flattens a nested array.
 // flatten([1, [2, 3, [4]]]); → [1, 2, 3, [4]]
@@ -406,3 +450,5 @@ function createArray() {
   // CODE HERE
 
 }
+
+//1. 整理QA的notes 2. 重写filter,every, indexOf; 3. 画图once
