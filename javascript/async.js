@@ -72,7 +72,7 @@ function sayHowdy() {
   function theEnd() {
     console.log('This is the end!');
   }
-  // everyXsecsForYsecs(theEnd, 2, 20); // should invoke theEnd function every 2 seconds, for 20 seconds): This is the end!
+  everyXsecsForYsecs(theEnd, 2, 20); // should invoke theEnd function every 2 seconds, for 20 seconds): This is the end!
   
   
   /* CHALLENGE 7 */

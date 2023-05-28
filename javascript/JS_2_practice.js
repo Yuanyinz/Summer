@@ -318,6 +318,9 @@ const arr5 = [arr3, arr4];
 console.log(arr5)
 console.log([...arr3, ...arr4])
 
+
+
+
 function once(func) {
   let hasBeenInvoked = false;
   let result;
