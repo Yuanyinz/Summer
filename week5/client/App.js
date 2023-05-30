@@ -1,7 +1,13 @@
 import React from 'react';
+import UserInput from './UserInput';
 
+//root component
 function App() {
-  return <h1>Hello sdfasdf</h1>;
+  return (
+    <>
+      <UserInput />
+    </>
+  )
 }
 
 export default App;
