@@ -1,38 +1,50 @@
 import React from 'react';
 import { useState } from 'react';
+import {v4 as uuid} from 'uuid';
 
 const UserInput = () => {
-  //deconstruction
-  // const array = ['a', 'b', 'c'];
-  // let [num1, num2, num3] = array
-  // console.log(num1)
 
-  //state => data will change based on user interaction
-//   const [counter, setCounter] = useState(0);
   const [newItem, setNewItem] = useState('');
-
+  const [toDoList, setToDoList] = useState([]);
   const handleClick = e => {
-    // e.preventDefault();
-    console.log('button clicked');
-    console.log(newItem)
-    // setCounter(counter + 1);
+    setToDoList(currentToDo => {
+      const newState = [...currentToDo, newItem];
+      console.log('toDoList', newState);
+      return newState;
+    }) 
+  }
+  
+  const handleDelete = e => {
+    setToDoList(currentToDo => {
+      return currentToDo.filter((item) => item !== e);
+    })
   }
 
-  // e => event object
-  // e.target
-  // const handleUserName = (e) => {
-  //   console.log(userName);
-  // }
+  const handleEdit = e => {
+    console.log('edit click')
+  }
 
+ 
   return (
     <>
-      {/* <form> */}
-        <label htmlFor="toDo">To Do: </label>
-        <input type="text" id="toDo" name="toDo" value={newItem} onChange={e => setNewItem(e.target.value)}/>
-        <button onClick={handleClick}>Add</button>
-      {/* </form> */}
-        {/* <h1>{counter}</h1>
-        <button>Increment</button> */}
+      <label htmlFor="toDo">To Do: </label>
+      <input 
+        type="text" 
+        id="toDo" 
+        name="toDo" 
+        value={newItem} 
+        onChange={e => setNewItem(e.target.value)}/>
+      <button onClick={handleClick}>Add</button>
+      {toDoList.map(item => {
+        const uniq = uuid();
+        return (
+          <div id={uniq} key={uniq}>
+            <span>{item}</span>
+            <button onClick={()=>handleDelete(item)}>Delete</button>
+            <button onClick={handleEdit}>Edit</button>
+          </div>
+        )
+      })}
     </>
   )
 }
