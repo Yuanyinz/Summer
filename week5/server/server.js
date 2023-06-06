@@ -18,7 +18,6 @@ const data = {
 //     .sendFile(path.resolve(__dirname, '../client/index.html'));
 // });
 
-
 // user get information from data
 app.get('/', (req, res, next) => {
   // console.log('the response will be sent by the next function ...')
@@ -52,31 +51,37 @@ app.delete('/',(req,res,next) =>{
 
 //user edit toDo
 app.put('/',(req,res,next) => {
-  console.log('update info from req.body',req.body)
-  for (let key in data) {
-    if (Object.keys(req.body).includes(key)) {
-      data[key] = req.body[key];
+  try{console.log('update info from req.body',req.body)
+    for (let key in data) {
+      if (Object.keys(req.body).includes(key)) {
+       data[key] = req.body[key];
+      }
     }
-  }
-  console.log(data)
-  res.send('success')
-  next()
+    console.log(data)
+    res.send('success')
+    next()}catch(err){
+      next(err)
+    }
 })
-// original key and value;
-// new key and value
-
 
 
 //Handle non-existed url request
-app.use((req, res, next) => {
-  res.status(404).send('Page not found');
-});
-
+// app.use((req, res, next) => {
+//   res.status(404).send('Your page not found');
+// });
+// Cannot set headers after they are sent to the client问题在这里 还不知道怎么解决
+//例如错误 postman http://localhost:8080/test？？
 
 //Global error handler
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send('Internal Server Error');
+});
 
-
-
+const ErrorHandler = (err, req, res, next) => {
+  console.log("error")
+  res.status(500).send('Internal Server Error')
+}
 
 // start server
 app.listen(PORT, () => {
@@ -89,47 +94,4 @@ module.exports = app;
 
 
 
-
-
-
-
-// get
-// app.get('/test',(req,res,next) => {
-  //   res.send('GET request to the homepage')
-  //   next()
-  // })
-
-// app.get('/test', (req, res, next) => {
-//   console.log('test');
-//   res.status(200).send('hello')
-//   next();
-// })
-
-// app.get('/test', (req, res, next) => {
-//     console.log('the response will be sent by the next function ...')
-//在哪里看这行？
-//     next()
-//   }, (req, res) => {
-//     res.send('Hello from B!')
-//   })
-
-// app.post('/test',(req,res,next) => {
-//   res.send('test post')
-//   console.log("?")
-//   next()
-// })
-
-
-
-//app.delete('/test') 
-
-// app.delete('/test', (req,res,next) => {
-//   res.send('delete')
-//   next()
-// })
-
-
-
-
-//app.post('/test')
 
