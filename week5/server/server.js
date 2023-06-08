@@ -20,38 +20,42 @@ const data = {
 
 // user get information from data
 app.get('/', (req, res, next) => {
-  // console.log('the response will be sent by the next function ...')
-  console.log('do I have access to the data?', data)
-  res.send(data)
-  next()
+  try {
+    console.log('do I have access to the data?', data)
+    res.send(data)
+  } catch (err) {
+    next(err)
+  }
 })
 
+// console.log('outside of app.get')
 
 //user add new toDo 
-app.post('/',(req,res,next) => {
-  console.log('do I have info from req.body?', req.body.toDo)
-  Object.assign(data, req.body.toDo);
+app.post('/',(req,res) => {
+  console.log('do I have info from req.body?', req.body)
+  Object.assign(data, req.body);
   //also can use Object.keys()
   console.log('data', data);
 
   res.send("success");
-  next();
+  // next();
 })
 
 
 //user delete toDo
-app.delete('/',(req,res,next) =>{
+app.delete('/',(req,res) =>{
   console.log('info from req.body',req.body)
   const key = req.body.key
   delete data[key]
   console.log(data)
   res.send('success')
-  next()
+  // next()
 })
 
 //user edit toDo
-app.put('/',(req,res,next) => {
-  try{console.log('update info from req.body',req.body)
+app.put('/',(req,res) => {
+  try {
+    console.log('update info from req.body',req.body)
     for (let key in data) {
       if (Object.keys(req.body).includes(key)) {
        data[key] = req.body[key];
@@ -59,18 +63,22 @@ app.put('/',(req,res,next) => {
     }
     console.log(data)
     res.send('success')
-    next()}catch(err){
-      next(err)
-    }
+    // next()
+  } catch (err) {
+    next(err)
+  }
 })
 
 
 //Handle non-existed url request
-// app.use((req, res, next) => {
-//   res.status(404).send('Your page not found');
-// });
+app.use((req, res, next) => {
+  console.log('inside app.use for url handler');
+  const err = new Error("Page Not Found")
+  next(err);
+});
 // Cannot set headers after they are sent to the client问题在这里 还不知道怎么解决
 //例如错误 postman http://localhost:8080/test？？
+
 
 //Global error handler
 app.use((err, req, res, next) => {
@@ -78,10 +86,12 @@ app.use((err, req, res, next) => {
   res.status(500).send('Internal Server Error');
 });
 
-const ErrorHandler = (err, req, res, next) => {
-  console.log("error")
-  res.status(500).send('Internal Server Error')
-}
+// const ErrorHandler = (err, req, res, next) => {
+//   console.log("error")
+//   res.status(500).send('Internal Server Error')
+// }
+
+// // const error = new ErrorHandler(err, req, res, next)
 
 // start server
 app.listen(PORT, () => {
