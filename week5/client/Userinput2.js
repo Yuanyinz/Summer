@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 
 const Userinput2 = (props) => {
-    const [newItem, setNewItem] = useState('');
+    // const [newItem, setNewItem] = useState('');
 
     const handleAdd = e => {
-        props.addTodo(newItem)
+        props.addTodo(props.newItem)
+        //props.addTodo(props.newItem)是干什么用的？
+        // 在调用addTodo函数么 那为什么还要传递一个newItem?
       }
   return (
     <>
@@ -13,8 +15,8 @@ const Userinput2 = (props) => {
         type="text" 
         id="toDo" 
         name="toDo" 
-        value={newItem}
-        onChange={e => setNewItem(e.target.value)}/>
+        value={props.newItem}
+        onChange={e => props.setNewItem(e.target.value)}/>
         {/* value 和 onChange 都是干什么用的 分不清楚,哪个被返回到handleClick才让我们拥有了newItem*/}
       <button onClick={handleAdd}>Add</button>
     </>

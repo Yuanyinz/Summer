@@ -5,38 +5,34 @@ import Userinput2 from './Userinput2';
 import ToDoDisplay from './ToDoDisplay';
 
 const App = () => {
-
+  const [newItem, setNewItem] = useState('');
   const [toDoList, setToDoList] = useState([]);
   const [makeEdit, setMakeEdit] = useState(false);
   const [editId,setEditId] = useState(null)
 
   function addTodo(value) {
+    //value是不是Userinput传递回来的参数？
     setToDoList(currentToDo => {
       const newState = [...currentToDo, {id:uuid(),value}];
-      //是在这里建立的uuid吗
       console.log('toDoList', newState);
       return newState;
     }) 
   }
   
-  const handleDelete = id => {
+  function deletefun(id) {
     setToDoList(toDoList => {
-      // 我们需要通过setToDoList存一个新的toDoList但是我们旧的toDoList是怎么调用的呢
       return toDoList.filter((item) => item.id !== id);
-      // 通过过滤全部item 只保留item.id 不等于 返回的id，筛除 item.id 等于 返回的id
     })
   }
 
-  const handleEdit = id => {
-
+  function clickEdit(id) {
     setEditId(id)
     setMakeEdit(true);
   }
 
-  const saveEdit = id => {
+  function Edit(){
     setToDoList(toDoList => {
       console.log('inside saveEdit', editId)
-      // 我们需要通过setToDoList存一个新的toDoList但是我们旧的toDoList是怎么调用的呢
       return toDoList.map((item) => {
         
         if (item.id === editId) {
@@ -47,65 +43,23 @@ const App = () => {
     })
     setMakeEdit(false);
   }
-
-
   return (
     <>
-      <Userinput2 addTodo= {addTodo}/>
-      <ToDoDisplay/>
-      {/* 在这后面的handleClick（14）调用了uuid但是我们在58行才遍历了toDoList建立了uuid啊（在第61行把每一个uuid命名为
-      uniq,并让key和id相等） */}
-      {toDoList.map(item => {
-        return (
-          <div id={item.id} key={item.id}>
-            <span>{item.value}</span>
-            <button onClick={()=>handleDelete(item.id)}>Delete</button>
-            <button onClick={()=>handleEdit(item.id)}>Edit</button>
-          </div>
-        )
-      })}
-
-      {makeEdit && (
-        <>
-        <input
-          type='text'
-          id='newtoDo'
-          name='newtodo'
-          // value={newItem}
-          onChange={(e) => setNewItem(e.target.value)}
-          // value 和 onChange 都是干什么用的 分不清楚,哪个被返回到saveEdit才让我们拥有了newItem
-        />
-        <button onClick={saveEdit}>save</button>
-      </>
-      )}
+      <Userinput2 
+      addTodo= {addTodo} 
+      newItem = {newItem} 
+      setNewItem = {setNewItem}
+      />
+      <ToDoDisplay 
+      deletefun={deletefun} 
+      Edit = {Edit} 
+      clickEdit={clickEdit} 
+      makeEdit={makeEdit}
+      toDoList={toDoList}
+      setNewItem = {setNewItem}
+      />
     </>
   )
 }
 
 export default App;
-
-
-
-// //root component
-// function App() {
-//   // const [toDoList, setToDoList] = useState([]);
-//   // handleDelete
-//   const handleEdit = e => {
-//     console.log('hi')
-//   }
-
-//   return (
-//     <>
-//       <label htmlFor="toDo">To Do: </label>
-//       <Userinput2 />
-//       <ToDoDisplay handleEdit={handleEdit} clarify='hello' hello='hi' />
-//       {/* {handleEdit: handleEdit,
-//         clarify: 'hello',
-//         hello: "hi"
-//       } */}
-//       <UserInput />
-//     </>
-//   )
-// }
-
-// export default App;
