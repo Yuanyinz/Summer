@@ -1,9 +1,14 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const path = require('path');
 const PORT = 8080;
 
 app.use(express.json());
+
+app.use(cors({
+  origin: 'http://localhost:3000'
+}));
 
 const data = {
   "studying": "studying",
@@ -45,8 +50,8 @@ app.post('/',(req,res) => {
 //user delete toDo
 app.delete('/',(req,res) =>{
   console.log('info from req.body',req.body)
-  const key = req.body.key
-  delete data[key]
+  const id = req.body.id
+  // delete data[key] 我们似乎没有在后端引入ID
   console.log(data)
   res.send('success')
   // next()

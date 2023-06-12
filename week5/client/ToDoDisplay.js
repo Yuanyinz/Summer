@@ -2,28 +2,28 @@ import React from 'react';
 
 const ToDoDisplay = (props) => {
 
-  const handleDelete = id => {
-    props.deletefun(id)
-    // 传递回去了ID？
-  }
+  // const handleDelete = id => {
+  //   props.deletefun(id)
+  //   // 传递回去了ID？
+  // }
 
-  const handleEdit = id => {
-    props.clickEdit(id)
-    // 传递回去了ID？
-  }
+  // const handleEdit = id => {
+  //   props.clickEdit(id)
+  //   // 传递回去了ID？
+  // }
 
-  const saveEdit = () => {
-    props.Edit()
-    //这是引用了Edit函数？
-  }
+  // const saveEdit = () => {
+  //   props.Edit()
+  //   //这是引用了Edit函数？
+  // }
   return (
     <>
       {props.toDoList.map(item => {
         return (
           <div id={item.id} key={item.id}>
            <span>{item.value}</span>
-          <button onClick={() => handleDelete(item.id)}>Delete</button>
-          <button onClick={() => handleEdit(item.id)}>Edit</button>
+          <button onClick={() => props.deletefun(item.id)}>Delete</button>
+          <button onClick={() => props.clickEdit(item.id)}>Edit</button>
           </div>
         )
       })}
@@ -36,7 +36,7 @@ const ToDoDisplay = (props) => {
           name='newtodo'
           onChange={(e) => props.setNewItem(e.target.value)}
         />
-        <button onClick={saveEdit}>save</button>
+        <button onClick={() => props.Edit()}>save</button>
       </>
       )}
     </>
