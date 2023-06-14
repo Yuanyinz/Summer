@@ -3,6 +3,8 @@ const cors = require('cors');
 const app = express();
 const path = require('path');
 const PORT = 8080;
+const uuid = require('uuid');
+const fs = require('fs');
 
 app.use(express.json());
 
@@ -10,10 +12,7 @@ app.use(cors({
   origin: 'http://localhost:3000'
 }));
 
-const data = {
-  "studying": "studying",
-  "shop": "shop",
-}
+
 
 // serve index.html
 // app.get('/', (req, res) => {
@@ -26,8 +25,15 @@ const data = {
 // user get information from data
 app.get('/', (req, res, next) => {
   try {
-    console.log('do I have access to the data?', data)
-    res.send(data)
+    fs.readFile(path.resolve(__dirname, './database.json'), 'utf-8', (err, data) => {
+      if (err) {
+        console.log('error in GET readFile');
+        next(err);
+      }
+      // console.log('data', data);
+      res.send(data);
+    })
+
   } catch (err) {
     next(err)
   }
@@ -38,24 +44,79 @@ app.get('/', (req, res, next) => {
 //user add new toDo 
 app.post('/',(req,res) => {
   console.log('do I have info from req.body?', req.body)
-  Object.assign(data, req.body);
-  //also can use Object.keys()
-  console.log('data', data);
+  // {content: "study"}
 
-  res.send("success");
-  // next();
+  // uuid
+  const uniq = uuid.v4();
+
+  // {"12iu4u": "study"}
+  const newData = {};
+  newData[uniq] = req.body.content;
+  
+  //read from database
+  fs.readFile(path.resolve(__dirname, './database.json'), 'utf-8', (err, data) => {
+    if (err) {
+      console.log('error in POST readFile');
+      next(err);
+    }
+    // console.log('data', data);
+    // data => json format => convert to JS object
+    data = JSON.parse(data);
+    data = Object.assign(data, newData);
+
+    // data write to JSON database
+    fs.writeFile(path.resolve(__dirname, './database.json'), JSON.stringify(data), err => {
+      if (err) {
+        next(err);
+      }
+
+      // send success status/message to client
+      console.log("write to database successfully");
+      res.send(newData);
+    })  
+  })
 })
+
+
 
 
 //user delete toDo
 app.delete('/',(req,res) =>{
   console.log('info from req.body',req.body)
-  const id = req.body.id
-  // delete data[key] 我们似乎没有在后端引入ID
-  console.log(data)
-  res.send('success')
-  // next()
+  // { uuid: '65068a67-ad23-460c-a3e3-3c1127139e80' }
+  const deleteId = req.body.uuid;
+
+  //read from database
+  fs.readFile(path.resolve(__dirname, './database.json'), 'utf-8', (err, data) => {
+    if (err) {
+      console.log('error in POST readFile');
+      next(err);
+    }
+
+    
+    let jsonData = JSON.parse(data);
+    console.log(jsonData)
+
+    for (let key in jsonData) {
+      if(key === deleteId) {
+        delete jsonData[key]
+      }
+    }
+    console.log(jsonData)
+
+    // data write to JSON database
+    fs.writeFile(path.resolve(__dirname, './database.json'), JSON.stringify(jsonData), err => {
+      if (err) {
+        next(err);
+      }
+      console.log("delete to database successfully")
+      res.send(jsonData);
+    })
+  })
 })
+
+
+
 
 //user edit toDo
 app.put('/',(req,res) => {
@@ -67,7 +128,7 @@ app.put('/',(req,res) => {
       }
     }
     console.log(data)
-    res.send('success')
+    res.send({message: 'success'})
     // next()
   } catch (err) {
     next(err)
