@@ -101,7 +101,7 @@ const App = () => {
     //fetch
     const editOption = {
       method: 'PUT',
-      body: JSON.stringify({ uuid: id }),
+      body: JSON.stringify({ uuid:editId, content:newItem}),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -112,10 +112,10 @@ const App = () => {
         // console.log('message sent');
         return response.json();
       })
-      .then(data => {
-        //
-        console.log('response data:', data);
-      })
+      // .then(data => {
+      //   //
+      //   console.log('response data:', data);
+      // })
       // .catch(error => {
       //   console.error(error);
       // });

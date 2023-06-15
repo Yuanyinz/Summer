@@ -120,19 +120,35 @@ app.delete('/',(req,res) =>{
 
 //user edit toDo
 app.put('/',(req,res) => {
-  try {
-    console.log('update info from req.body',req.body)
-    for (let key in data) {
-      if (Object.keys(req.body).includes(key)) {
-       data[key] = req.body[key];
+  console.log('info from req.body',req.body.uuid)
+  console.log('info from req.body',req.body.content)
+
+  fs.readFile(path.resolve(__dirname, './database.json'), 'utf-8', (err, data) => {
+    if (err) {
+      console.log('error in POST readFile');
+      next(err);
+    }
+
+    
+    let jsonData = JSON.parse(data);
+    console.log(jsonData)
+
+    for (let key in jsonData) {
+      if(key === req.body.uuid) {
+        jsonData[key] = req.body.content
       }
     }
-    console.log(data)
-    res.send({message: 'success'})
-    // next()
-  } catch (err) {
-    next(err)
-  }
+    console.log(jsonData)
+
+    // data write to JSON database
+    fs.writeFile(path.resolve(__dirname, './database.json'), JSON.stringify(jsonData), err => {
+      if (err) {
+        next(err);
+      }
+      console.log("delete to database successfully")
+      res.send(jsonData);
+    })
+  })
 })
 
 
