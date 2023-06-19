@@ -96,21 +96,21 @@ console.log(trim(' hello '))
 // }
 // forEach(['a','b','c'], callback); → prints a,0,['a','b','c'] b,1,['a','b','c'] c,2,['a','b','c']
 // For each element in the array, the callback we passed is called. The callback can be customized, but in the above example, the callback prints out the element, index, and entire array.
-function forEach(array, callback) {
-  for (let i = 0; i < array.length; i++){
-    callback(array[i], i , array);
+function forEach(array, callback1) {
+  const result = [];
+  for (let i = 0; i < array.length; i++) {
+    const callbackResult = callback1(array[i], i, array);
+    result.push(callbackResult);
   }
+  return result.flat();;
 }
 
-function callback1 (element, index, array) {
-  console.log(element + "," + index + "," + "[" + array.join(",") + "]");
+function callback1(element, index, array) {
+  return [element, index, array];
 }
 
-// const callback = function (element) {
-//   console.log(element * 2)
-// }
+console.log(forEach(['a', 'b', 'c'], callback1));
 
-// console.log(forEach(['a','b','c'], callback1));
 
 
 
@@ -135,7 +135,7 @@ const callback2 = function(element) {
   return element * 3;
 };
 
-// console.log(map([1,2,3],callback2));
+console.log(map([1,2,3],callback2));
 
 
 
@@ -455,3 +455,5 @@ function createArray() {
 }
 
 //1. 整理QA的notes 2. 重写filter,every, indexOf; 3. 画图once
+
+module.exports = {returnOdds,returnEvens,findMax,trim,forEach,callback1,map,callback2,filter,reject,uniq1,uniq2,indexOf,once,reduce,every,flatten}

@@ -260,3 +260,4 @@ function add(num1, num2) {
   console.log(isNull(null))
   console.log(isNull(5))
   
+  module.exports = {addTwo, add}
