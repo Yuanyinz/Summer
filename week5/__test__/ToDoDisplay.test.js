@@ -5,7 +5,9 @@ import userEvent from '@testing-library/user-event';
 
 
 describe('Testing ToDoDisplay', () => {
+  //这里是干什么的
   let component;
+  //component 代表什么
   const mockDeleteFun = jest.fn();
   const mockClickEdit = jest.fn();
   const mockEdit = jest.fn();
@@ -14,6 +16,7 @@ describe('Testing ToDoDisplay', () => {
   const props = {
     toDoList: [{id: 'test-id', value: 'Unit Test'}],
     deletefun: mockDeleteFun,
+    //mock什么意思
     clickEdit: mockClickEdit,
     Edit: mockEdit,
     makeEdit: false,
